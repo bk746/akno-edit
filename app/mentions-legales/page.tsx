@@ -16,22 +16,16 @@ export default function MentionsLegalesPage() {
     >
       <h2>Éditeur du site</h2>
       <dl>
-        <dt>Raison sociale / nom</dt>
-        <dd>
-          <span className="legal-placeholder">[À COMPLÉTER]</span>
-        </dd>
-        <dt>Statut juridique</dt>
-        <dd>
-          <span className="legal-placeholder">[À COMPLÉTER]</span>
-        </dd>
+        <dt>Éditeur</dt>
+        <dd>Keryan Bouzerda — AKNO · Entrepreneur individuel</dd>
         <dt>SIRET</dt>
-        <dd>
-          <span className="legal-placeholder">[À COMPLÉTER]</span>
-        </dd>
+        <dd>101&nbsp;354&nbsp;413&nbsp;00011</dd>
+        <dt>SIREN</dt>
+        <dd>101&nbsp;354&nbsp;413</dd>
+        <dt>Code APE</dt>
+        <dd>62.01Z — Programmation informatique</dd>
         <dt>Adresse</dt>
-        <dd>
-          <span className="legal-placeholder">[À COMPLÉTER]</span>
-        </dd>
+        <dd>17 allée Paul Gauguin</dd>
         <dt>E-mail</dt>
         <dd>
           <a href="mailto:aknoweb.contact@gmail.com">aknoweb.contact@gmail.com</a>
@@ -40,11 +34,10 @@ export default function MentionsLegalesPage() {
         <dd>
           <a href="tel:+33781990761">07 81 99 07 61</a>
         </dd>
-        <dt>Directeur / directrice de la publication</dt>
-        <dd>
-          <span className="legal-placeholder">[À COMPLÉTER]</span>
-        </dd>
       </dl>
+
+      <h2>Directeur de la publication</h2>
+      <p>Keryan Bouzerda</p>
 
       <h2>Hébergeur</h2>
       <p>
