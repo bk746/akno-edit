@@ -136,21 +136,27 @@ export function AknoSite() {
             {[
               {
                 id: "offre",
+                n: "01",
                 t: "Offre & direction",
                 p: "On clarifie quoi construire — et pourquoi.",
               },
               {
                 id: "design",
+                n: "02",
                 t: "Design & expérience",
                 p: "On design pour convertir, pas juste pour être beau.",
               },
               {
                 id: "dev",
+                n: "03",
                 t: "Développement & lancement",
                 p: "On livre un site rapide, propre, prêt à performer.",
               },
             ].map((step) => (
               <li className="m1c rv" key={step.id}>
+                <span className="m1n" aria-hidden="true">
+                  {step.n}
+                </span>
                 <h3>{step.t}</h3>
                 <p>{step.p}</p>
               </li>
