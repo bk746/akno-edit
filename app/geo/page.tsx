@@ -1,14 +1,21 @@
-import type { Metadata } from "next";
 import { AknoSubPage } from "@/components/akno/AknoSubPage";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { AKNO_GEO_HTML } from "@/components/akno/akno-geo-html";
+import { aknoPageMetadata } from "@/lib/aknoMetadata";
+import { servicePageJsonLd } from "@/lib/aknoStructuredData";
 
-export const metadata: Metadata = {
-  title: "GEO — visibilité IA | AKNO",
+export const metadata = aknoPageMetadata({
+  title: "GEO : être cité par les IA",
   description:
-    "Optimisation pour les moteurs génératifs : être cité et recommandé par ChatGPT, Perplexity et les AI Overviews.",
-  alternates: { canonical: "/geo" },
-};
+    "Faites recommander votre entreprise par ChatGPT, Gemini, Perplexity et les AI Overviews de Google.",
+  path: "/geo",
+});
 
 export default function GeoPage() {
-  return <AknoSubPage html={AKNO_GEO_HTML} page="geo" />;
+  return (
+    <>
+      <JsonLd data={servicePageJsonLd("geo")} />
+      <AknoSubPage html={AKNO_GEO_HTML} page="geo" />
+    </>
+  );
 }

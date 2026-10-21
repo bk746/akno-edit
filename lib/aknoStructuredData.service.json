@@ -1,0 +1,236 @@
+{
+  "site-web": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "Site web",
+        "serviceType": "Création de site web",
+        "description": "Site vitrine, refonte ou site sur mesure : un site rapide, pensé pour convertir, conçu à Annecy du brief à la mise en ligne. Un seul interlocuteur.",
+        "provider": {
+          "@id": "https://akno.fr/#org"
+        },
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "Annecy"
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Haute-Savoie"
+          }
+        ],
+        "url": "https://akno.fr/site-web"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Accueil",
+            "item": "https://akno.fr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Services",
+            "item": "https://akno.fr/#services"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Site web",
+            "item": "https://akno.fr/site-web"
+          }
+        ]
+      }
+    ]
+  },
+  "seo-performance": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "SEO & Performance",
+        "serviceType": "Référencement SEO et performance web",
+        "description": "Audit technique, Core Web Vitals, contenu, SEO local et netlinking à Annecy : un référencement solide pour être trouvé, sans promesse de position.",
+        "provider": {
+          "@id": "https://akno.fr/#org"
+        },
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "Annecy"
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Haute-Savoie"
+          }
+        ],
+        "url": "https://akno.fr/seo-performance"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Accueil",
+            "item": "https://akno.fr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Services",
+            "item": "https://akno.fr/#services"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "SEO & Performance",
+            "item": "https://akno.fr/seo-performance"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Garantissez-vous la première position ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Non. Personne ne contrôle l’algorithme de Google. Nous nous engageons sur ce qui se maîtrise : technique, vitesse, contenu et suivi."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quand voit-on des effets ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Le SEO se construit dans la durée. Chaque point de suivi montre l’évolution, sans chiffre promis à l’avance."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Le SEO est-il inclus dans un site AKNO ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui pour les bases : technique, structure et Core Web Vitals font partie du livrable."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Travaillez-vous sur un site existant ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui. On commence par un audit, puis on corrige ce qui freine."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quelle différence avec le GEO ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Le SEO vise les résultats de Google. Le GEO vise les réponses des assistants IA. Les deux se renforcent."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "geo": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "GEO",
+        "serviceType": "Generative Engine Optimization",
+        "description": "Generative Engine Optimization à Annecy : données structurées, marque cohérente et contenus citables pour apparaître dans les réponses des assistants IA.",
+        "provider": {
+          "@id": "https://akno.fr/#org"
+        },
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "Annecy"
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Haute-Savoie"
+          }
+        ],
+        "url": "https://akno.fr/geo"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Accueil",
+            "item": "https://akno.fr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Services",
+            "item": "https://akno.fr/#services"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "GEO",
+            "item": "https://akno.fr/geo"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Qu’est-ce que le GEO ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "L’optimisation pour les moteurs génératifs : rendre un site compréhensible et citable par des assistants comme ChatGPT, Gemini ou Perplexity."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Le GEO remplace-t-il le SEO ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Non. Il s’appuie dessus. Un site rapide et bien structuré reste la base, voir notre page SEO."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pouvez-vous garantir que je serai cité ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Non. Les assistants choisissent leurs sources eux-mêmes. Nous travaillons ce qui les aide à vous comprendre."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "À quoi sert un fichier llms.txt ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "C’est une proposition de standard qui résume un site pour les modèles de langage. Il ne remplace ni le contenu ni les données structurées."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quels assistants suivez-vous ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "ChatGPT, Gemini, Perplexity et les AI Overviews de Google."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

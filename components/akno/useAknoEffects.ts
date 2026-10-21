@@ -10,7 +10,7 @@ import { initAknoHeroWall } from "@/lib/aknoHeroWall";
 
 const WHATSAPP_NUMBER = "33781990761";
 
-type Page = "home" | "site-web" | "seo-performance" | "geo";
+type Page = "home" | "site-web" | "seo-performance" | "geo" | "legal";
 
 export function useAknoEffects({ page }: { page: Page }) {
   useEffect(() => {
@@ -272,7 +272,7 @@ export function useAknoEffects({ page }: { page: Page }) {
     let gsapCtx: gsap.Context | undefined;
 
     const runGsap = () => {
-      if (RM || !lenis) return;
+      if (RM || !lenis || page === "legal") return;
       gsap.config({ nullTargetWarn: false });
       gsapCtx = gsap.context(() => {
         const E = "expo.out";
@@ -299,7 +299,11 @@ export function useAknoEffects({ page }: { page: Page }) {
           );
         };
         if (page === "home") introThen(heroIn, true);
-        else {
+        else if (
+          page === "site-web" ||
+          page === "seo-performance" ||
+          page === "geo"
+        ) {
           introThen(() => {}, false);
           gsap.to(".phero h1 .ln>span", {
             y: 0,

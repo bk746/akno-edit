@@ -61,7 +61,15 @@ function stripSectionNumbers(body) {
     .replace(
       /<input aria-hidden="true" autocomplete="off" class="sr" name="_gotcha" tabindex="-1" type="text"\/>/g,
       '<input autocomplete="off" class="hidden" name="botcheck" tabindex="-1" type="checkbox"/>',
-    );
+    )
+    .replace(
+      /<button data-dlg="d-conf" type="button">confidentialité<\/button>/g,
+      '<a href="/confidentialite">confidentialité</a>',
+    )
+    .replace(/<button data-dlg="d-ml" type="button">/g, '<a href="/mentions-legales">')
+    .replace(/<button data-dlg="d-conf" type="button">/g, '<a href="/confidentialite">')
+    .replace(/Mentions légales<\/button>/g, "Mentions légales</a>")
+    .replace(/Confidentialité<\/button>/g, "Confidentialité</a>");
 }
 
 /** Accueil v11 : titre Services à gauche, sans eyebrow « Services ». */

@@ -1,14 +1,21 @@
-import type { Metadata } from "next";
 import { AknoSubPage } from "@/components/akno/AknoSubPage";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { AKNO_SITE_WEB_HTML } from "@/components/akno/akno-site-web-html";
+import { aknoPageMetadata } from "@/lib/aknoMetadata";
+import { servicePageJsonLd } from "@/lib/aknoStructuredData";
 
-export const metadata: Metadata = {
-  title: "Création de site web à Annecy | AKNO",
+export const metadata = aknoPageMetadata({
+  title: "Création de site web à Annecy",
   description:
-    "Site vitrine, landing ou e-commerce sur mesure à Annecy. Design, développement et mise en ligne avec un interlocuteur unique.",
-  alternates: { canonical: "/site-web" },
-};
+    "Sites vitrines, e-commerce et refontes sur-mesure. Design soigné, code rapide, pensé pour convertir et être trouvé.",
+  path: "/site-web",
+});
 
 export default function SiteWebPage() {
-  return <AknoSubPage html={AKNO_SITE_WEB_HTML} page="site-web" />;
+  return (
+    <>
+      <JsonLd data={servicePageJsonLd("site-web")} />
+      <AknoSubPage html={AKNO_SITE_WEB_HTML} page="site-web" />
+    </>
+  );
 }
