@@ -23,18 +23,182 @@
   white-space: nowrap;
 }
 
-.form.form-sent {
+/* —— Succès formulaire contact —— */
+.form-body {
+  transition:
+    opacity 0.3s var(--e, cubic-bezier(0.22, 1, 0.36, 1)),
+    transform 0.3s var(--e, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+.form-body-out {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+.form.form-is-ok {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 14rem;
-  text-align: center;
 }
 
-.form.form-sent p {
+.form-ok {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  padding: 4px 0;
+}
+
+.form-ok-ic {
+  width: 52px;
+  height: 52px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.form-ok-ic-c,
+.form-ok-ic-p {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.form-is-ok:not(.form-is-ok-an) .form-ok-ic-c,
+.form-is-ok:not(.form-is-ok-an) .form-ok-ic-p {
+  stroke-dashoffset: 0;
+}
+
+.form-is-ok-an .form-ok-ic-c {
+  animation: form-ok-stroke 0.48s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.form-is-ok-an .form-ok-ic-p {
+  animation: form-ok-stroke 0.32s cubic-bezier(0.22, 1, 0.36, 1) 0.48s forwards;
+}
+
+@keyframes form-ok-stroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.form-ok-t {
   margin: 0;
-  font-size: 17px;
-  line-height: 1.5;
+  font-family: "Inter Tight", "Mona Sans", sans-serif;
+  font-size: clamp(24px, 3vw, 28px);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+  color: #f2f2f2;
+}
+
+.form-ok-t em {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
   letter-spacing: -0.01em;
-  color: var(--fg);
+}
+
+.form-ok-t:focus {
+  outline: none;
+}
+
+.form-ok-t:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.form-ok-p {
+  margin: 14px 0 0;
+  font-size: 15px;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: #8e8e93;
+  max-width: 36em;
+}
+
+.form-ok-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.form-ok-links a,
+.form-ok-links .form-ok-reset {
+  background: none;
+  border: 0;
+  padding: 4px 2px;
+  font: inherit;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  color: #8e8e93;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s var(--e, ease);
+}
+
+.form-ok-links a:hover,
+.form-ok-links .form-ok-reset:hover {
+  color: #d4d4d4;
+}
+
+.form-ok-links a:focus-visible,
+.form-ok-links .form-ok-reset:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.form-is-ok-an .form-ok-ic,
+.form-is-ok-an .form-ok-t,
+.form-is-ok-an .form-ok-p,
+.form-is-ok-an .form-ok-links {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: form-ok-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.form-is-ok-an .form-ok-t {
+  animation-delay: 0.08s;
+}
+
+.form-is-ok-an .form-ok-p {
+  animation-delay: 0.16s;
+}
+
+.form-is-ok-an .form-ok-links {
+  animation-delay: 0.24s;
+}
+
+@keyframes form-ok-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-body {
+    transition: none;
+  }
+
+  .form-is-ok-an .form-ok-ic,
+  .form-is-ok-an .form-ok-t,
+  .form-is-ok-an .form-ok-p,
+  .form-is-ok-an .form-ok-links {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .form-is-ok-an .form-ok-ic-c,
+  .form-is-ok-an .form-ok-ic-p {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
 }
