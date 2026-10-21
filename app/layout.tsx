@@ -67,10 +67,18 @@ const jsonLd = {
   ],
 };
 
+const introHeadScript = `try{if(!sessionStorage.getItem('akno-intro'))document.documentElement.classList.add('intro')}catch(e){}`;
+const introCriticalCss =
+  "#intro{display:none}.intro #intro{display:block;position:fixed;inset:0;z-index:300}.intro #intro .ibg{position:absolute;inset:0;background:#000}.intro,.intro body{overflow:hidden}.intro .nav .logo{opacity:0}.intro .ilogo{opacity:0}";
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="fr">
+    <html lang="fr" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{ __html: introHeadScript }}
+        />
+        <style dangerouslySetInnerHTML={{ __html: introCriticalCss }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

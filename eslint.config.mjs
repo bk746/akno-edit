@@ -13,6 +13,8 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "site 19/**",
+    "akno-site 6/**",
+    "components/akno/akno-*-html.ts",
   ]),
 ]);
 
