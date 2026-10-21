@@ -4,11 +4,12 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { initAknoApSec, initAknoKeyDataCarousel } from "@/lib/aknoApSec";
 import { initAknoHeroWall } from "@/lib/aknoHeroWall";
 
 const WHATSAPP_NUMBER = "33781990761";
 
-type Page = "home" | "site-web" | "seo-performance";
+type Page = "home" | "site-web" | "seo-performance" | "geo";
 
 export function useAknoEffects({ page }: { page: Page }) {
   useEffect(() => {
@@ -759,6 +760,9 @@ export function useAknoEffects({ page }: { page: Page }) {
       ),
     );
 
+    const cleanupAp = page === "home" ? initAknoApSec(RM) : undefined;
+    const cleanupKd = page === "home" ? initAknoKeyDataCarousel() : undefined;
+
     return () => {
       document.removeEventListener("click", onAnchorClick);
       document.removeEventListener("click", onDlgClick);
@@ -785,6 +789,8 @@ export function useAknoEffects({ page }: { page: Page }) {
       gsapCtx?.revert();
       ScrollTrigger.getAll().forEach((t) => t.kill());
       cleanupWall?.();
+      cleanupAp?.();
+      cleanupKd?.();
       lenis?.destroy();
       if (lenisTick) gsap.ticker.remove(lenisTick);
       document.body.style.overflow = "";

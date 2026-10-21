@@ -1,0 +1,15 @@
+/* Ajustements Next.js (préférences produit, au-dessus de la maquette v11) */
+.hero + #methode.m1 {
+  padding-top: 88px;
+}
+@media (max-width: 760px) {
+  .hero + #methode.m1 {
+    padding-top: 48px;
+  }
+}
+#services .h11-left {
+  text-align: left;
+}
+#services .h11-left h2 {
+  max-width: none;
+}

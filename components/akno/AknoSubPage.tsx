@@ -4,7 +4,7 @@ import { useAknoEffects } from "./useAknoEffects";
 
 type Props = {
   html: string;
-  page: "site-web" | "seo-performance";
+  page: "site-web" | "seo-performance" | "geo";
 };
 
 function AknoEffects({ page }: { page: Props["page"] }) {

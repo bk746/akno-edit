@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     siteName: "AKNO",
-    title: "AKNO — Des sites qui ramènent des clients",
+    title: "AKNO — Des sites que les IA recommandent",
     description:
       "Studio web à Annecy. Stratégie, UI/UX, code et SEO : un interlocuteur, du brief au livré.",
     url: siteUrl,
