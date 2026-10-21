@@ -1,17 +1,10 @@
-"use client";
-
+import { AknoEffects } from "./AknoEffects";
 import { AKNO_HOME_HTML } from "./akno-home-html";
-import { useAknoEffects } from "./useAknoEffects";
-
-function AknoEffects() {
-  useAknoEffects({ page: "home" });
-  return null;
-}
 
 export function AknoSite() {
   return (
     <>
-      <AknoEffects />
+      <AknoEffects page="home" />
       <div id="akno-root" dangerouslySetInnerHTML={{ __html: AKNO_HOME_HTML }} />
     </>
   );

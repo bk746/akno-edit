@@ -28,7 +28,7 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
-const introHeadScript = `try{if(!sessionStorage.getItem('akno-intro'))document.documentElement.classList.add('intro')}catch(e){}`;
+const introHeadScript = `try{if(!sessionStorage.getItem('akno-intro')&&!matchMedia('(max-width:759px)').matches)document.documentElement.classList.add('intro')}catch(e){}`;
 const introCriticalCss =
   "#intro{display:none}.intro #intro{display:block;position:fixed;inset:0;z-index:300}.intro #intro .ibg{position:absolute;inset:0;background:#000}.intro,.intro body{overflow:hidden}.intro .nav .logo{opacity:0}.intro .ilogo{opacity:0}";
 
@@ -37,6 +37,25 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="fr" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: introHeadScript }} />
+        <link
+          rel="preload"
+          as="image"
+          href="/assets/img/wall/c-lacets-1-280.webp"
+          media="(max-width:759px)"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/assets/img/wall/c-sublimessence-1-280.webp"
+          media="(max-width:759px)"
+        />
+        <link
+          rel="preload"
+          href="/assets/fonts/mona-sans.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         <style dangerouslySetInnerHTML={{ __html: introCriticalCss }} />
       </head>
       <body>{children}</body>

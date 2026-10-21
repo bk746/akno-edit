@@ -1,4 +1,5 @@
-import { AknoSite } from "@/components/akno/AknoSite";
+import { AknoEffects } from "@/components/akno/AknoEffects";
+import { AKNO_HOME_HTML } from "@/components/akno/akno-home-html";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { aknoPageMetadata } from "@/lib/aknoMetadata";
 import { homeJsonLd } from "@/lib/aknoStructuredData";
@@ -15,7 +16,8 @@ export default function Home() {
   return (
     <>
       <JsonLd data={homeJsonLd} />
-      <AknoSite />
+      <div id="akno-root" dangerouslySetInnerHTML={{ __html: AKNO_HOME_HTML }} />
+      <AknoEffects page="home" />
     </>
   );
 }

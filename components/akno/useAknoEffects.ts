@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import Lenis from "lenis";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type gsap from "gsap";
+import type Lenis from "lenis";
 import { initAknoApSec, initAknoKeyDataCarousel } from "@/lib/aknoApSec";
 import { bindAknoContactForm } from "@/lib/aknoContactForm";
 import { initAknoHeroWall } from "@/lib/aknoHeroWall";
@@ -14,30 +13,51 @@ type Page = "home" | "site-web" | "seo-performance" | "geo" | "legal";
 
 export function useAknoEffects({ page }: { page: Page }) {
   useEffect(() => {
-    const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    document.documentElement.classList.add("js");
+    let cancelled = false;
+    let cleanupMain: (() => void) | undefined;
 
-    document.querySelectorAll("[data-wa]").forEach((a) => {
-      (a as HTMLAnchorElement).href = `https://wa.me/${WHATSAPP_NUMBER}`;
-    });
+    const boot = async () => {
+      const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.documentElement.classList.add("js");
 
-    let lenis: Lenis | null = null;
-    let lenisTick: ((time: number) => void) | null = null;
+      let gsapLib: typeof gsap | null = null;
+      let ScrollTrigger: typeof import("gsap/ScrollTrigger").ScrollTrigger | null =
+        null;
+      let LenisCtor: typeof import("lenis").default | null = null;
 
-    if (!RM) {
-      lenis = new Lenis({
-        duration: 1.15,
-        easing: (t: number) => 1 - Math.pow(1 - t, 4),
-        smoothWheel: true,
+      if (!RM) {
+        const [gsapMod, stMod, lenisMod] = await Promise.all([
+          import("gsap"),
+          import("gsap/ScrollTrigger"),
+          import("lenis"),
+        ]);
+        if (cancelled) return;
+        gsapLib = gsapMod.default;
+        ScrollTrigger = stMod.ScrollTrigger;
+        LenisCtor = lenisMod.default;
+      }
+
+      document.querySelectorAll("[data-wa]").forEach((a) => {
+        (a as HTMLAnchorElement).href = `https://wa.me/${WHATSAPP_NUMBER}`;
       });
-      gsap.registerPlugin(ScrollTrigger);
-      lenis.on("scroll", ScrollTrigger.update);
-      lenisTick = (time: number) => lenis?.raf(time * 1000);
-      gsap.ticker.add(lenisTick);
-      gsap.ticker.lagSmoothing(0);
-    } else {
-      document.documentElement.classList.remove("js");
-    }
+
+      let lenis: Lenis | null = null;
+      let lenisTick: ((time: number) => void) | null = null;
+
+      if (!RM && gsapLib && ScrollTrigger && LenisCtor) {
+        lenis = new LenisCtor({
+          duration: 1.15,
+          easing: (t: number) => 1 - Math.pow(1 - t, 4),
+          smoothWheel: true,
+        });
+        gsapLib.registerPlugin(ScrollTrigger);
+        lenis.on("scroll", ScrollTrigger.update);
+        lenisTick = (time: number) => lenis?.raf(time * 1000);
+        gsapLib.ticker.add(lenisTick);
+        gsapLib.ticker.lagSmoothing(0);
+      } else {
+        document.documentElement.classList.remove("js");
+      }
 
     const onAnchorClick = (e: MouseEvent) => {
       const a = (e.target as Element).closest(
@@ -244,7 +264,11 @@ export function useAknoEffects({ page }: { page: Page }) {
       }
       const ibg = ov.querySelector(".ibg");
       const navLogoLink = document.querySelector(".nav .logo") as HTMLElement | null;
-      const tl = gsap.timeline({ onComplete: end });
+      if (!gsapLib) {
+        end();
+        return;
+      }
+      const tl = gsapLib.timeline({ onComplete: end });
       tl.set(lg, { x: dx, y: dy, scale: S, opacity: 0, filter: "blur(8px)" })
         .set(L, { scaleX: 0 })
         .to(lg, { opacity: 1, filter: "blur(0px)", duration: 0.7, ease: "power3.out" }, 0.1)
@@ -272,19 +296,19 @@ export function useAknoEffects({ page }: { page: Page }) {
     let gsapCtx: gsap.Context | undefined;
 
     const runGsap = () => {
-      if (RM || !lenis || page === "legal") return;
-      gsap.config({ nullTargetWarn: false });
-      gsapCtx = gsap.context(() => {
+      if (RM || !lenis || !gsapLib || page === "legal") return;
+      gsapLib.config({ nullTargetWarn: false });
+      gsapCtx = gsapLib.context(() => {
         const E = "expo.out";
         const heroIn = () => {
-          gsap.to(".lead .ln>span", {
+          gsapLib!.to(".lead .ln>span", {
             y: 0,
             duration: 1.3,
             ease: E,
             stagger: 0.09,
             delay: 0.15,
           });
-          gsap.to(".hero .rv", {
+          gsapLib!.to(".hero .rv", {
             opacity: 1,
             y: 0,
             duration: 1.1,
@@ -292,11 +316,13 @@ export function useAknoEffects({ page }: { page: Page }) {
             stagger: 0.08,
             delay: 0.45,
           });
-          gsap.fromTo(
-            "#wall",
-            { opacity: 0 },
-            { opacity: 1, duration: 1.8, ease: "power2.out", clearProps: "opacity" },
-          );
+          if (innerWidth >= 760) {
+            gsapLib!.fromTo(
+              "#wall",
+              { opacity: 0 },
+              { opacity: 1, duration: 1.8, ease: "power2.out", clearProps: "opacity" },
+            );
+          }
         };
         if (page === "home") introThen(heroIn, true);
         else if (
@@ -305,7 +331,7 @@ export function useAknoEffects({ page }: { page: Page }) {
           page === "geo"
         ) {
           introThen(() => {}, false);
-          gsap.to(".phero h1 .ln>span", {
+          gsapLib!.to(".phero h1 .ln>span", {
             y: 0,
             duration: 1.3,
             ease: E,
@@ -316,7 +342,7 @@ export function useAknoEffects({ page }: { page: Page }) {
 
         document.querySelectorAll("main section:not(.hero) h2").forEach((h) => {
           if (h.querySelector(".ln")) {
-            gsap.to(h.querySelectorAll(".ln>span"), {
+            gsapLib!.to(h.querySelectorAll(".ln>span"), {
               y: 0,
               duration: 1.2,
               ease: E,
@@ -326,8 +352,8 @@ export function useAknoEffects({ page }: { page: Page }) {
           }
         });
 
-        gsap.utils.toArray<HTMLElement>("main section:not(.hero) .rv").forEach((el) => {
-          gsap.to(el, {
+        gsapLib!.utils.toArray<HTMLElement>("main section:not(.hero) .rv").forEach((el) => {
+          gsapLib!.to(el, {
             opacity: 1,
             y: 0,
             duration: 1.1,
@@ -339,17 +365,17 @@ export function useAknoEffects({ page }: { page: Page }) {
           });
         });
 
-        gsap.utils.toArray<HTMLElement>(".stage").forEach((st) => {
+        gsapLib!.utils.toArray<HTMLElement>(".stage").forEach((st) => {
           const m = st.querySelector(".mac");
           const p = st.querySelector(".iph");
           const small = !!st.closest(".mc");
           if (m && p) {
-            gsap
+            gsapLib!
               .timeline({ scrollTrigger: { trigger: st, start: "top 85%" } })
               .from(m, { y: 60, opacity: 0, duration: 1.4, ease: E })
               .from(p, { y: 90, opacity: 0, duration: 1.4, ease: E }, "-=1.15");
             if (!small && innerWidth > 760) {
-              gsap.fromTo(
+              gsapLib!.fromTo(
                 p,
                 { yPercent: 10 },
                 {
@@ -363,7 +389,7 @@ export function useAknoEffects({ page }: { page: Page }) {
                   },
                 },
               );
-              gsap.fromTo(
+              gsapLib!.fromTo(
                 m,
                 { yPercent: 3 },
                 {
@@ -381,8 +407,8 @@ export function useAknoEffects({ page }: { page: Page }) {
           }
         });
 
-        gsap.utils.toArray<HTMLElement>(".pm").forEach((pm) =>
-          gsap.from(pm.children, {
+        gsapLib!.utils.toArray<HTMLElement>(".pm").forEach((pm) =>
+          gsapLib!.from(pm.children, {
             y: 24,
             opacity: 0,
             duration: 1.1,
@@ -394,7 +420,7 @@ export function useAknoEffects({ page }: { page: Page }) {
 
         const hero = document.querySelector(".hero");
         if (hero) {
-          gsap.to(".hero .lead", {
+          gsapLib!.to(".hero .lead", {
             y: -60,
             opacity: 0,
             ease: "none",
@@ -422,7 +448,7 @@ export function useAknoEffects({ page }: { page: Page }) {
       };
       if (RM || !("IntersectionObserver" in window)) {
         ics.forEach(go);
-      } else if (!RM && lenis) {
+      } else if (!RM && lenis && ScrollTrigger) {
         ScrollTrigger.batch(ics, {
           start: "top 90%",
           once: true,
@@ -689,10 +715,11 @@ export function useAknoEffects({ page }: { page: Page }) {
     const form = document.getElementById("form") as HTMLFormElement | null;
     const cleanupForm = form ? bindAknoContactForm(form) : undefined;
 
-    const cleanupAp = page === "home" ? initAknoApSec(RM) : undefined;
+    const cleanupAp =
+      page === "home" ? initAknoApSec(RM, gsapLib) : undefined;
     const cleanupKd = page === "home" ? initAknoKeyDataCarousel() : undefined;
 
-    return () => {
+    cleanupMain = () => {
       document.removeEventListener("click", onAnchorClick);
       document.removeEventListener("click", onDlgClick);
       removeEventListener("scroll", solid);
@@ -716,14 +743,22 @@ export function useAknoEffects({ page }: { page: Page }) {
       clearTimeout(copyT);
       clearInterval(tt);
       gsapCtx?.revert();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      ScrollTrigger?.getAll().forEach((t) => t.kill());
       cleanupWall?.();
       cleanupAp?.();
       cleanupKd?.();
       lenis?.destroy();
-      if (lenisTick) gsap.ticker.remove(lenisTick);
+      if (lenisTick && gsapLib) gsapLib.ticker.remove(lenisTick);
       document.body.style.overflow = "";
       document.documentElement.classList.remove("menu-open", "js");
+    };
+    };
+
+    void boot();
+
+    return () => {
+      cancelled = true;
+      cleanupMain?.();
     };
   }, [page]);
 }

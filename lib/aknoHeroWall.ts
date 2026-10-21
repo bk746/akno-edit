@@ -1,20 +1,4 @@
-const IMG: [string, string][] = [
-  ["veillee", "VIDEO"],
-  ["sublimessence", "c-sublimessence-0"],
-  ["vauclair", "c-vauclair-0"],
-  ["lacets", "c-lacets-0"],
-  ["alric", "c-alric-0"],
-  ["veillee", "c-veillee-2"],
-  ["sublimessence", "c-sublimessence-2"],
-  ["vauclair", "c-vauclair-1"],
-  ["lacets", "c-lacets-1"],
-  ["alric", "c-alric-1"],
-  ["veillee", "c-veillee-3"],
-  ["sublimessence", "c-sublimessence-1"],
-  ["vauclair", "c-vauclair-2"],
-  ["veillee", "c-veillee-0"],
-  ["sublimessence", "c-sublimessence-3"],
-];
+import { AKNO_HERO_WALL_IMG } from "./aknoHeroWallImg";
 
 type CardEl = HTMLDivElement & { _i: number; _j: number };
 
@@ -40,8 +24,14 @@ export function initAknoHeroWall(RM: boolean): (() => void) | undefined {
   let lt = 0;
 
   function build() {
-    const mob = innerWidth < 760;
-    wall!.innerHTML = "";
+    const mob = matchMedia("(max-width:759px)").matches;
+    const expected = mob ? 20 : 30;
+    const pre =
+      !build.done && wall!.children.length === expected
+        ? ([...wall!.children] as CardEl[])
+        : null;
+    build.done = true;
+    if (!pre) wall!.innerHTML = "";
     cards = [];
     W = mob ? 150 : Math.min(270, innerWidth * 0.19);
     H = W * 0.75;
@@ -55,25 +45,61 @@ export function initAknoHeroWall(RM: boolean): (() => void) | undefined {
     let vids = 0;
     for (let j = 0; j < rows; j++) {
       for (let i = 0; i < cols; i++) {
-        const n = IMG.length;
+        const n = AKNO_HERO_WALL_IMG.length;
         const q = (((i * 3 + j * 5) % n) + n) % n;
-        const [, f] = IMG[q];
-        const d = document.createElement("div") as CardEl;
+        const [, f] = AKNO_HERO_WALL_IMG[q];
+        const d = (pre ? pre[j * cols + i] : document.createElement("div")) as CardEl;
         d.className = "card";
-        d.style.cssText = `width:${W}px;height:${H}px;margin-left:${-W / 2}px;margin-top:${-H / 2}px`;
+        const TW = cols * (W + G);
+        const TH = rows * (H + G);
+        const x =
+          (((i * (W + G) + ox) % TW) + TW) % TW - TW / 2;
+        const y =
+          (((j * (H + G) + oy) % TH) + TH) % TH - TH / 2;
+        d.style.cssText = `width:${W}px;height:${H}px;margin-left:${-W / 2}px;margin-top:${-H / 2}px;transform:translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0)`;
         const vid = f === "VIDEO" && !mob && !RM && vids++ < 2;
         const im = f === "VIDEO" ? "c-veillee-1" : f;
-        d.innerHTML = `<div class="in">${
-          vid
-            ? `<video src="/assets/video/veillee.mp4" poster="/assets/img/wall/c-veillee-1.webp" autoplay muted loop playsinline tabindex="-1"></video>`
-            : `<img src="/assets/img/wall/${im}-280.webp" srcset="/assets/img/wall/${im}-280.webp 280w, /assets/img/wall/${im}.webp 560w" sizes="${Math.round(W)}px" width="560" height="420" alt="" draggable="false" decoding="async">`
-        }</div>`;
+        if (!pre || vid) {
+          d.innerHTML = `<div class="in">${
+            vid
+              ? `<video src="/assets/video/veillee.mp4" poster="/assets/img/wall/c-veillee-1.webp" autoplay muted loop playsinline tabindex="-1"></video>`
+              : `<img src="/assets/img/wall/${im}-280.webp" srcset="/assets/img/wall/${im}-280.webp 280w, /assets/img/wall/${im}.webp 560w" sizes="${Math.round(W)}px" width="560" height="420" alt="" draggable="false" decoding="async">`
+          }</div>`;
+        }
         d._i = i;
         d._j = j;
-        wall!.appendChild(d);
+        if (!pre) wall!.appendChild(d);
         cards.push(d);
       }
     }
+    wall!.setAttribute("data-wall-ready", "");
+  }
+  build.done = false;
+
+  function adoptMobilePrebuilt(): boolean {
+    if (!matchMedia("(max-width:759px)").matches || wall!.children.length !== 20)
+      return false;
+    cards = [...wall!.children] as CardEl[];
+    W = 150;
+    H = W * 0.75;
+    G = 12;
+    cols = 4;
+    rows = 5;
+    const k = RM ? 0.12 : 1;
+    vx = 10 * k;
+    vy = 5.6 * k;
+    tilt!.style.transform = "rotateX(52deg) rotateZ(-32deg)";
+    let idx = 0;
+    for (let j = 0; j < rows; j++) {
+      for (let i = 0; i < cols; i++) {
+        const d = cards[idx++] as CardEl;
+        d._i = i;
+        d._j = j;
+      }
+    }
+    build.done = true;
+    wall!.setAttribute("data-wall-ready", "");
+    return true;
   }
 
   function frame(dt: number) {
@@ -101,7 +127,7 @@ export function initAknoHeroWall(RM: boolean): (() => void) | undefined {
 
   const vids = () => wall!.querySelectorAll("video");
 
-  build();
+  if (!adoptMobilePrebuilt()) build();
   frame(0);
   run();
 
@@ -112,6 +138,7 @@ export function initAknoHeroWall(RM: boolean): (() => void) | undefined {
     lw = innerWidth;
     clearTimeout(rt);
     rt = setTimeout(() => {
+      build.done = false;
       build();
       frame(0);
     }, 150);

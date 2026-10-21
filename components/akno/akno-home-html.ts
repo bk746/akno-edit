@@ -1,3 +1,5 @@
+import { aknoMobileWallInnerHtml } from "@/lib/aknoMobileWallHtml";
+
 export const AKNO_HOME_HTML = `
 <div aria-hidden="true" id="intro"><div class="ibg"></div><i class="il l"></i><i class="il r"></i><span class="ilogo"><svg aria-hidden="true" focusable="false" viewbox="0 0 1490 1073"><path d="M605,798 L594,805 L508,922 L405,1073 L587,1073 L680,945 L669,915ZM0,1069 L0,1073 L173,1073 L495,396 L521,355 L578,464 L864,1073 L1033,1073 L867,716 L867,712 L908,671 L962,724 L1270,1073 L1490,1073 L1297,852 L1021,551 L1467,88 L1238,88 L793,552 L520,0Z" fill="#fff"></path></svg></span><button class="iskip" tabindex="-1" type="button">Passer</button></div>
 <a class="skip" href="#main">Aller au contenu</a>
@@ -13,7 +15,7 @@ export const AKNO_HOME_HTML = `
 </div>
 <main id="main">
 <section aria-label="Introduction" class="hero" id="top">
-<div aria-hidden="true" id="scene"><div id="tilt"><div id="wall"></div></div></div>
+<div aria-hidden="true" id="scene"><div id="tilt"><div id="wall">${aknoMobileWallInnerHtml()}</div></div></div>
 <div class="veil l"></div><div class="veil r"></div><div class="veil b"></div>
 <div class="hx lead">
 <p class="eyb rv">Akno — Studio web, Annecy</p>
@@ -34,12 +36,12 @@ export const AKNO_HOME_HTML = `
 <figcaption>de personnes utilisent ChatGPT chaque semaine.</figcaption>
 <p class="kd-src">Source : <a href="https://www.theverge.com/ai-artificial-intelligence/1002265/chatgpt-now-has-1-2-billion-weekly-users-openai-says" rel="noopener" target="_blank">OpenAI, via The Verge, septembre 2026</a></p>
 </figure>
-<figure aria-hidden="true" aria-label="2 sur 3" aria-roledescription="diapositive" class="kd-s">
+<figure aria-hidden="true" aria-label="2 sur 3" aria-roledescription="diapositive" class="kd-s" inert="">
 <p class="kd-big">2 Md<span>+</span></p>
 <figcaption>d’utilisateurs mensuels voient les AI Overviews de Google.</figcaption>
 <p class="kd-src">Source : <a href="https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q2-2025/" rel="noopener" target="_blank">Google, résultats T2, juillet 2025</a></p>
 </figure>
-<figure aria-hidden="true" aria-label="3 sur 3" aria-roledescription="diapositive" class="kd-s">
+<figure aria-hidden="true" aria-label="3 sur 3" aria-roledescription="diapositive" class="kd-s" inert="">
 <p class="kd-big">8 %</p>
 <figcaption>des recherches avec résumé IA mènent à un clic sur un résultat, contre 15 % sans.</figcaption>
 <p class="kd-src">Source : <a href="https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/" rel="noopener" target="_blank">Pew Research Center, juillet 2025</a></p>
@@ -57,7 +59,7 @@ export const AKNO_HOME_HTML = `
 </div>
 </div>
 </section>
-<section aria-labelledby="t-svc" class="sx ap-sec" id="services"><div class="w11"><div class="h11 h11-left"><h2 id="t-svc"><span class="ln"><span>Trois expertises.</span></span> <span class="ln"><span>Un seul objectif : <em>être trouvé.</em></span></span></h2></div><div class="ap-g"><article class="ap-t ap-web"><div class="ap-tx"><h3>Site web</h3><p>Sur-mesure, pensé pour convertir.</p><div class="ap-lk"><a aria-label="En savoir plus : Site web" href="/site-web">En savoir plus <span>›</span></a></div></div><div class="ap-v"><div class="ap-ph"><div class="ap-ph-sh"></div><div class="ap-ph-edge"></div><div class="ap-ph-body"><div class="ap-ph-scr"><img alt="Accueil du site Akno sur iPhone" loading="lazy" src="/assets/img/dev/akno-hero-m.webp"/><span class="ap-ph-di"></span><span class="ap-ph-gl"></span></div></div><i class="ap-ph-b ap-b1"></i><i class="ap-ph-b ap-b2"></i><i class="ap-ph-b ap-b3"></i><i class="ap-ph-b ap-b4"></i></div></div></article><article class="ap-t ap-seo"><div class="ap-tx"><h3>SEO</h3><p>En tête des recherches.</p><div class="ap-lk"><a aria-label="En savoir plus : SEO" href="/seo-performance">En savoir plus <span>›</span></a></div></div><div class="ap-v"><div class="ap-srch"><div class="ap-bar"><svg class="ap-mag" viewbox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5L20 20"></path></svg><span aria-hidden="true" class="ap-qt"></span><span class="ap-caret"></span></div>
+<section aria-labelledby="t-svc" class="sx ap-sec" id="services"><div class="w11"><div class="h11 h11-left"><h2 id="t-svc"><span class="ln"><span>Trois expertises.</span></span> <span class="ln"><span>Un seul objectif : <em>être trouvé.</em></span></span></h2></div><div class="ap-g"><article class="ap-t ap-web"><div class="ap-tx"><h3>Site web</h3><p>Sur-mesure, pensé pour convertir.</p><div class="ap-lk"><a aria-label="En savoir plus : Site web" href="/site-web">En savoir plus <span>›</span></a></div></div><div class="ap-v"><div class="ap-ph"><div class="ap-ph-sh"></div><div class="ap-ph-edge"></div><div class="ap-ph-body"><div class="ap-ph-scr"><img alt="Accueil du site Akno sur iPhone" decoding="async" loading="lazy" sizes="(max-width:860px) 210px, 236px" src="/assets/img/dev/akno-hero-m-420.webp" srcset="/assets/img/dev/akno-hero-m-420.webp 420w, /assets/img/dev/akno-hero-m.webp 780w" width="780" height="1688"/><span class="ap-ph-di"></span><span class="ap-ph-gl"></span></div></div><i class="ap-ph-b ap-b1"></i><i class="ap-ph-b ap-b2"></i><i class="ap-ph-b ap-b3"></i><i class="ap-ph-b ap-b4"></i></div></div></article><article class="ap-t ap-seo"><div class="ap-tx"><h3>SEO</h3><p>En tête des recherches.</p><div class="ap-lk"><a aria-label="En savoir plus : SEO" href="/seo-performance">En savoir plus <span>›</span></a></div></div><div class="ap-v"><div class="ap-srch"><div class="ap-bar"><svg class="ap-mag" viewbox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5L20 20"></path></svg><span aria-hidden="true" class="ap-qt"></span><span class="ap-caret"></span></div>
 <div class="ap-res"><div class="ap-row"><span class="ap-dotg"></span><span class="ap-ln"><i></i><i></i></span></div><div class="ap-row ap-ak"><img alt="" class="ap-logo" src="/assets/img/favicon.svg"/><span class="ap-ln"><b>Akno</b><i></i></span></div><div class="ap-row"><span class="ap-dotg"></span><span class="ap-ln"><i></i><i></i></span></div><div class="ap-row"><span class="ap-dotg"></span><span class="ap-ln"><i></i><i></i></span></div><div class="ap-row"><span class="ap-dotg"></span><span class="ap-ln"><i></i><i></i></span></div><div class="ap-row"><span class="ap-dotg"></span><span class="ap-ln"><i></i><i></i></span></div></div></div></div></article><article class="ap-t ap-geo"><div class="ap-tx"><h3>GEO</h3><p>Cité par les IA.</p><div class="ap-lk"><a aria-label="En savoir plus : GEO" href="/geo">En savoir plus <span>›</span></a></div></div><div class="ap-v"><div class="ap-gx"><div class="ap-ai"><div class="ap-glow"></div><div class="ap-card"><div class="ap-prompt"><i></i><i></i></div><div class="ap-ask"><span class="ap-spark"><svg viewbox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"></path></svg></span><span class="ap-skel"><i></i><i></i><i></i><i></i><b class="ap-think"></b></span></div><div class="ap-src"><img alt="" class="ap-logo" src="/assets/img/favicon.svg"/><b>Akno</b><span class="ap-cite">Source</span><span class="ap-pulse"></span></div><div class="ap-more"><i></i><i></i><i></i><i></i></div></div></div></div></div></article></div></div></section>
 
 <section aria-labelledby="t-real" class="sx" id="realisations">
@@ -144,7 +146,7 @@ export const AKNO_HOME_HTML = `
 <div class="f full"><textarea id="f-m" name="message" placeholder=" " required="" rows="3"></textarea><label for="f-m">Votre projet en quelques mots</label><i aria-hidden="true"></i></div>
 </div>
 <div class="rgpd"><input id="f-c" name="consentement" required="" type="checkbox" value="oui"/><label for="f-c">J’accepte que mes données servent uniquement à répondre à ma demande (<a href="/confidentialite">confidentialité</a>).</label></div>
-<input autocomplete="off" class="hidden" name="botcheck" tabindex="-1" type="checkbox"/>
+<input aria-hidden="true" aria-label="Ne pas cocher" autocomplete="off" class="hidden" name="botcheck" tabindex="-1" type="checkbox"/>
 <div class="sub"><button class="send" type="submit"><span class="lb">Envoyer ma demande</span><span aria-hidden="true" class="ic"><svg viewbox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg></span></button><small>Sans engagement</small></div>
 <div aria-live="polite" class="msg" id="msg" role="status"></div>
 </form>
