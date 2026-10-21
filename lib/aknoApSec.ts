@@ -1,16 +1,18 @@
-import gsap from "gsap";
+import type gsap from "gsap";
 
 type TileLoops = { intro: gsap.core.Timeline | null; loops: gsap.core.Timeline[] };
 
-export function initAknoApSec(RM: boolean): (() => void) | undefined {
+export function initAknoApSec(
+  RM: boolean,
+  gsapIn: typeof gsap | null,
+): (() => void) | undefined {
   const sections = [...document.querySelectorAll(".ap-sec")];
   if (!sections.length) return undefined;
-  if (RM || !gsap) {
+  if (RM || !gsapIn) {
     sections.forEach((s) => s.classList.add("ap-static"));
     return undefined;
   }
-
-  const g = gsap;
+  const g = gsapIn;
   const E = "expo.inOut";
   const P = "power3.out";
   const cleanups: (() => void)[] = [];
@@ -227,7 +229,10 @@ export function initAknoKeyDataCarousel(): (() => void) | undefined {
     i = (n + slides.length) % slides.length;
     slides.forEach((s, j) => {
       s.classList.toggle("on", j === i);
-      s.setAttribute("aria-hidden", String(j !== i));
+      const hidden = j !== i;
+      s.setAttribute("aria-hidden", String(hidden));
+      if (hidden) s.setAttribute("inert", "");
+      else s.removeAttribute("inert");
     });
     if (N) N.textContent = String(i + 1).padStart(2, "0");
     restart();
@@ -273,6 +278,8 @@ export function initAknoKeyDataCarousel(): (() => void) | undefined {
     );
     io.observe(k);
   }
+
+  show(0);
 
   return () => {
     ring?.removeEventListener("animationend", onRingEnd);

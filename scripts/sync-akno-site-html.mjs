@@ -60,7 +60,7 @@ function stripSectionNumbers(body) {
     .replace(/<span class="n">\d+<\/span>/g, "")
     .replace(
       /<input aria-hidden="true" autocomplete="off" class="sr" name="_gotcha" tabindex="-1" type="text"\/>/g,
-      '<input autocomplete="off" class="hidden" name="botcheck" tabindex="-1" type="checkbox"/>',
+      '<input aria-hidden="true" aria-label="Ne pas cocher" autocomplete="off" class="hidden" name="botcheck" tabindex="-1" type="checkbox"/>',
     )
     .replace(
       /<button data-dlg="d-conf" type="button">confidentialité<\/button>/g,

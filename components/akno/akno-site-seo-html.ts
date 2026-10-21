@@ -28,12 +28,12 @@ export const AKNO_SEO_PERF_HTML = `
 <figcaption>de personnes utilisent ChatGPT chaque semaine.</figcaption>
 <p class="kd-src">Source : <a href="https://www.theverge.com/ai-artificial-intelligence/1002265/chatgpt-now-has-1-2-billion-weekly-users-openai-says" rel="noopener" target="_blank">OpenAI, via The Verge, septembre 2026</a></p>
 </figure>
-<figure aria-hidden="true" aria-label="2 sur 3" aria-roledescription="diapositive" class="kd-s">
+<figure aria-hidden="true" aria-label="2 sur 3" aria-roledescription="diapositive" class="kd-s" inert="">
 <p class="kd-big">2 Md<span>+</span></p>
 <figcaption>d’utilisateurs mensuels voient les AI Overviews de Google.</figcaption>
 <p class="kd-src">Source : <a href="https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q2-2025/" rel="noopener" target="_blank">Google, résultats T2, juillet 2025</a></p>
 </figure>
-<figure aria-hidden="true" aria-label="3 sur 3" aria-roledescription="diapositive" class="kd-s">
+<figure aria-hidden="true" aria-label="3 sur 3" aria-roledescription="diapositive" class="kd-s" inert="">
 <p class="kd-big">8 %</p>
 <figcaption>des recherches avec résumé IA mènent à un clic sur un résultat, contre 15 % sans.</figcaption>
 <p class="kd-src">Source : <a href="https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/" rel="noopener" target="_blank">Pew Research Center, juillet 2025</a></p>
