@@ -5,6 +5,7 @@ import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { initAknoApSec, initAknoKeyDataCarousel } from "@/lib/aknoApSec";
+import { bindAknoContactForm } from "@/lib/aknoContactForm";
 import { initAknoHeroWall } from "@/lib/aknoHeroWall";
 
 const WHATSAPP_NUMBER = "33781990761";
@@ -682,83 +683,7 @@ export function useAknoEffects({ page }: { page: Page }) {
     copyBtn?.addEventListener("click", onCopy);
 
     const form = document.getElementById("form") as HTMLFormElement | null;
-    const msg = document.getElementById("msg");
-    const ICO = {
-      ok: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9"/><path d="M6 10.3l2.6 2.6L14 7.5"/></svg>',
-      err: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9"/><path d="M10 5.8v5.2M10 14.2v.1"/></svg>',
-    };
-    const say = (t: string, ok?: boolean) => {
-      if (!msg) return;
-      msg.className = `msg ${ok ? "ok" : "err"}`;
-      msg.innerHTML = `${ICO[ok ? "ok" : "err"]}<div><b>${ok ? "Merci, c’est bien reçu." : "Un instant."}</b><p>${t}</p></div>`;
-    };
-    const onFormSubmit = async (e: Event) => {
-      e.preventDefault();
-      if (!form) return;
-      let bad: HTMLElement | null = null;
-      form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("[required]").forEach((f) => {
-        const v =
-          f.type === "checkbox"
-            ? (f as HTMLInputElement).checked
-              ? "1"
-              : ""
-            : f.value.trim();
-        const ko =
-          !v ||
-          (f.type === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
-        f.setAttribute("aria-invalid", String(ko));
-        if (ko && !bad) bad = f;
-      });
-      if (bad) {
-        say(
-          "Merci de compléter le nom, un e-mail valide, quelques mots sur votre projet et d’accepter l’utilisation de vos données.",
-        );
-        (bad as HTMLElement).focus();
-        return;
-      }
-      const gotcha = form.querySelector<HTMLInputElement>('input[name="_gotcha"]');
-      if (gotcha?.value) return;
-      const fallback =
-        ' Écrivez-nous directement à <a href="mailto:aknoweb.contact@gmail.com">aknoweb.contact@gmail.com</a> ou appelez le <a href="tel:+33781990761">07 81 99 07 61</a>.';
-      const btn = form.querySelector<HTMLButtonElement>("[type=submit]");
-      const lb = btn?.querySelector(".lb");
-      if (btn) {
-        btn.disabled = true;
-        btn.classList.add("ld");
-      }
-      if (lb) lb.textContent = "Envoi…";
-      try {
-        const fd = new FormData(form);
-        const r = await fetch("/api/contact", {
-          method: "POST",
-          body: fd,
-          headers: { Accept: "application/json" },
-        });
-        const data = (await r.json()) as { ok?: boolean };
-        if (r.status === 503) {
-          say(`L’envoi en ligne n’est pas encore activé.${fallback}`);
-          return;
-        }
-        if (!r.ok || !data.ok) throw new Error("fail");
-        form.reset();
-        say("Message envoyé. À très vite.", true);
-      } catch {
-        say(`L’envoi a échoué.${fallback}`);
-      } finally {
-        if (btn) {
-          btn.disabled = false;
-          btn.classList.remove("ld");
-        }
-        if (lb) lb.textContent = "Envoyer ma demande";
-      }
-    };
-    form?.addEventListener("submit", onFormSubmit);
-    form?.querySelectorAll("[required]").forEach((f) =>
-      f.addEventListener(
-        (f as HTMLInputElement).type === "checkbox" ? "change" : "input",
-        () => f.removeAttribute("aria-invalid"),
-      ),
-    );
+    const cleanupForm = form ? bindAknoContactForm(form) : undefined;
 
     const cleanupAp = page === "home" ? initAknoApSec(RM) : undefined;
     const cleanupKd = page === "home" ? initAknoKeyDataCarousel() : undefined;
@@ -771,7 +696,7 @@ export function useAknoEffects({ page }: { page: Page }) {
       bur?.removeEventListener("click", onBurClick);
       mn?.removeEventListener("click", onMnClick);
       copyBtn?.removeEventListener("click", onCopy);
-      form?.removeEventListener("submit", onFormSubmit);
+      cleanupForm?.();
       ioContact?.disconnect();
       ioFoot?.disconnect();
       ioNav.disconnect();

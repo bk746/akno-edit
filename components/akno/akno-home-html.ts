@@ -144,7 +144,7 @@ export const AKNO_HOME_HTML = `
 <div class="f full"><textarea id="f-m" name="message" placeholder=" " required="" rows="3"></textarea><label for="f-m">Votre projet en quelques mots</label><i aria-hidden="true"></i></div>
 </div>
 <div class="rgpd"><input id="f-c" name="consentement" required="" type="checkbox" value="oui"/><label for="f-c">J’accepte que mes données servent uniquement à répondre à ma demande (<button data-dlg="d-conf" type="button">confidentialité</button>).</label></div>
-<input aria-hidden="true" autocomplete="off" class="sr" name="_gotcha" tabindex="-1" type="text"/>
+<input autocomplete="off" class="hidden" name="botcheck" tabindex="-1" type="checkbox"/>
 <div class="sub"><button class="send" type="submit"><span class="lb">Envoyer ma demande</span><span aria-hidden="true" class="ic"><svg viewbox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg></span></button><small>Sans engagement</small></div>
 <div aria-live="polite" class="msg" id="msg" role="status"></div>
 </form>

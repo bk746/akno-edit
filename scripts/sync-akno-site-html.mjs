@@ -57,7 +57,11 @@ function stripSectionNumbers(body) {
   return body
     .replace(/<p class="eb"><b>\d+<\/b>\s*/g, '<p class="eb">')
     .replace(/<\/span><small>\d+<\/small><\/a>/g, "</span></a>")
-    .replace(/<span class="n">\d+<\/span>/g, "");
+    .replace(/<span class="n">\d+<\/span>/g, "")
+    .replace(
+      /<input aria-hidden="true" autocomplete="off" class="sr" name="_gotcha" tabindex="-1" type="text"\/>/g,
+      '<input autocomplete="off" class="hidden" name="botcheck" tabindex="-1" type="checkbox"/>',
+    );
 }
 
 /** Accueil v11 : titre Services à gauche, sans eyebrow « Services ». */
